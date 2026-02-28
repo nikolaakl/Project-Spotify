@@ -16,7 +16,6 @@ public final class CreatePlaylistCommand implements Command {
     private static final String CREATE_PLAYLIST_COMMAND_PLAYLIST_ALREADY_EXISTS = "Playlist %s already exists";
     private static final String CREATE_PLAYLIST_COMMAND_PLAYLIST_CREATED_SUCCESSFULLY =
             "Playlist %s has been successfully created";
-    private static final short PLAYLIST_NAME_INDEX = 0;
     private static final String ERROR_MESSAGE = "Unable to create playlist %s by user %s";
     private static final String CREATE_PLAYLIST_COMMAND_ERROR_MESSAGE = "Unable to create playlist %s " +
             "Try again later or contact administrator by providing the logs in %s";
