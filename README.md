@@ -1,21 +1,21 @@
-# 🎶 Spotify – Client-Server Music Streaming Platform
+# Spotify – Client-Server Music Streaming Platform
 
 A Java-based client–server application that simulates a simplified version of Spotify, supporting real-time audio streaming over the network.
 
 The system is built using Java NIO (SocketChannel) for communication and javax.sound.sampled (SourceDataLine) for real-time audio playback. It follows a modular architecture with command-based request handling and structured server responses.
 
-## 🚀 Overview
+## Overview
 
 This project implements a distributed music streaming platform consisting of:
 
-🖥 Spotify Server
+- Spotify Server
 
-💻 Spotify CLI Client
+- Spotify CLI Client
 
-The client communicates with the server using a custom text-based protocol.
+The client communicates with the server using a CLI interface.
 Audio files are streamed in real time without being fully downloaded beforehand.
 
-## 🏗 Architecture Highlights
+## Architecture Highlights
 
 - Client–Server architecture (Java NIO)
 
@@ -25,13 +25,13 @@ Audio files are streamed in real time without being fully downloaded beforehand.
 
 - Real-time streaming using SourceDataLine
 
-- Persistent storage using files (users & playlists)
+- Persistent storage using files (users, playlists & stats)
 
 - Error logging with user-friendly console messages
 
 - Session-based authentication
 
-## 🎵 Server Features
+## Server Features
 
 - User registration (email & password)
 
@@ -55,7 +55,7 @@ Audio files are streamed in real time without being fully downloaded beforehand.
 
 - Structured error handling & logging
 
-## 💻 Client Commands (CLI)
+## Client Commands (CLI)
 - register \<email> \<password>
 - login \<email> \<password>
 - logout
@@ -68,7 +68,7 @@ Audio files are streamed in real time without being fully downloaded beforehand.
 - play \<song>
 - stop
 
-## 🔊 Real-Time Streaming
+## Real-Time Streaming
 
 The streaming mechanism:
 
@@ -82,7 +82,7 @@ The streaming mechanism:
 
 5. Audio bytes are streamed and played in real time.
 
-## 🛡 Error Handling
+## Error Handling
 
 - User-friendly error messages in the console
 
