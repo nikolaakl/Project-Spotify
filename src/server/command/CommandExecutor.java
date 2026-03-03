@@ -41,7 +41,7 @@ public class CommandExecutor {
                 this.songRepository, this.stats);
 
         if (command == null) {
-            return CommandResponse.error(StatusCode.INVALID_ARGUMENTS, INVALID_COMMAND_USAGE_MESSAGE);
+            return CommandResponse.error(StatusCode.NOT_FOUND, INVALID_COMMAND_USAGE_MESSAGE);
         }
         CommandResponse<?> response = command.execute(parsedInput.commandArguments(), session);
 

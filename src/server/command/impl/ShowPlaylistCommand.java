@@ -1,7 +1,7 @@
 package server.command.impl;
 
 import server.command.response.CommandResponse;
-import server.command.response.PlaylistView;
+import server.command.response.view.PlaylistView;
 import server.command.response.StatusCode;
 import server.exception.checked.DataLoadException;
 import server.util.Logger;

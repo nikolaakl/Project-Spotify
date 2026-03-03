@@ -38,7 +38,7 @@ public final class RegisterCommand implements Command {
         }
 
         if (session.isLoggedIn()) {
-            return CommandResponse.error(StatusCode.UNAUTHORIZED,
+            return CommandResponse.error(StatusCode.ALREADY_EXISTS,
                     REGISTER_COMMAND_USER_LOGGED_IN.formatted(session.getLoggedUser().getEmail()));
         }
 

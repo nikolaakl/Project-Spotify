@@ -2,14 +2,14 @@ package server.command.impl;
 
 import server.command.response.CommandResponse;
 import server.command.response.StatusCode;
-import server.command.response.TopEntry;
+import server.command.response.view.TopEntryView;
 import server.validation.Validator;
 import server.command.CommandType;
 import server.model.stats.Stats;
 import server.session.ClientSession;
 
+import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 
 public final class TopCommand implements Command {
@@ -27,7 +27,7 @@ public final class TopCommand implements Command {
     }
 
     @Override
-    public CommandResponse<List<TopEntry>> execute(String[] input, ClientSession session) {
+    public CommandResponse<Collection<TopEntryView>> execute(String[] input, ClientSession session) {
         if (!Validator.hasArgs(input, CommandType.TOP.getCommandArgs())) {
             return CommandResponse.error(StatusCode.INVALID_ARGUMENTS, TOP_COMMAND_INVALID_USAGE_COMMAND);
         }
@@ -46,17 +46,15 @@ public final class TopCommand implements Command {
             return CommandResponse.error(StatusCode.INVALID_ARGUMENTS,
                     TOP_COMMAND_INVALID_NUMBER_GIVEN + TOP_COMMAND_INVALID_USAGE_COMMAND);
         }
-
         Map<String, Long> plays = this.stats.getPlays();
         if (plays.isEmpty()) {
             return CommandResponse.error(StatusCode.NOT_FOUND, TOP_COMMAND_NO_PLAYS);
         }
 
-        List<TopEntry> result = plays.entrySet().stream()
+        Collection<TopEntryView> result = plays.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(number)
-                .map(e -> new TopEntry(e.getKey(), e.getValue()))
-                .toList();
+                .map(e -> new TopEntryView(e.getKey(), e.getValue())).toList();
         return CommandResponse.success(TOP_COMMAND_SUCCESSFUL, result);
     }
 }

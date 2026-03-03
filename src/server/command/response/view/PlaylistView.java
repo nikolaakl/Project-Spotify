@@ -1,4 +1,4 @@
-package server.command.response;
+package server.command.response.view;
 
 import java.util.Collection;
 
