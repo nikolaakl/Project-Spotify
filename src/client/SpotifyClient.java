@@ -59,10 +59,7 @@ public class SpotifyClient {
 
     private void runClientLoop(Scanner scanner, SocketChannel socketChannel, ByteBuffer buffer) throws IOException {
         while (true) {
-            String enteringMessage = ENTERING_MESSAGE.formatted(this.userPrompt);
-            System.out.print(enteringMessage);
-            String message = scanner.nextLine().strip();
-
+            String message = enteringMessage(scanner);
             if (message.equals(DISCONNECT_MESSAGE)) {
                 break;
             }
@@ -74,23 +71,13 @@ public class SpotifyClient {
                 continue;
             }
             send(socketChannel, buffer, message);
-
             String jsonReply = receive(socketChannel, buffer);
             if (jsonReply == null || jsonReply.isEmpty()) {
                 System.out.println(DISCONNECTING_MESSAGE);
                 break;
             }
             CommandResponse<?> response = GsonSingleton.getInstance().fromJson(jsonReply, CommandResponse.class);
-            System.out.println(SERVER_REPLY_MESSAGE);
-            System.out.println("Status: " + response.getStatus());
-            System.out.println("Message: " + response.getMessage());
-
-            if (response.getPayload() != null) {
-                System.out.println("Payload: " + response.getPayload());
-            }
-            System.out.println();
-            updateUserPrompt(message, response.getMessage());
-
+            responseProcessing(response, message);
             if (response.getMessage().equals(PlayCommand.PLAY_COMMAND_SONG_PLAYED_SUCCESSFULLY)) {
                 String songId = (String) response.getPayload();
                 startStreaming(songId);
@@ -99,6 +86,24 @@ public class SpotifyClient {
                 stopStreaming();
             }
         }
+    }
+
+    private void responseProcessing(CommandResponse<?> response, String message) {
+        System.out.println(SERVER_REPLY_MESSAGE);
+        System.out.println("Status: " + response.getStatus());
+        System.out.println("Message: " + response.getMessage());
+
+        if (response.getPayload() != null) {
+            System.out.println("Payload: " + response.getPayload());
+        }
+        System.out.println();
+        updateUserPrompt(message, response.getMessage());
+    }
+
+    private String enteringMessage(Scanner scanner) {
+        String enteringMessage = ENTERING_MESSAGE.formatted(this.userPrompt);
+        System.out.print(enteringMessage);
+        return scanner.nextLine().strip();
     }
 
     private void updateUserPrompt(String message, String reply) {
